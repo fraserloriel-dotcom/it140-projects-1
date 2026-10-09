@@ -1,33 +1,41 @@
 # Project One Get-Item Pseudocode
 #
-# Graded checkpoint: Module Five Project One
-# Later use: get-item and inventory design for M7 Project Two
-#
-# Review the course-provided get-item flowchart before completing this file.
-# Write pseudocode, not Python code. Use clear indentation and course-appropriate
-# keywords such as INPUT, OUTPUT, IF, ELSE, SET, ADD, or similar terms.
-
-START get_item
-
-    # TODO 1: Identify the information the get-item process needs.
-    # Consider the current room, item in that room, and player's inventory.
-
-    # TODO 2: Prompt for and receive the player's get-item command.
-
-    # TODO 3: Validate whether the requested item is available in the current
-    # room. Show the decision clearly.
-
-    # TODO 4: Describe what happens when the item request is valid.
-    # Include the inventory update and player output.
-
-    # TODO 5: Describe what happens when the item request is invalid.
-    # Include the output the player should receive.
-
-    # TODO 6: Show how the process returns to or continues the larger gameplay
-    # loop after the command is handled.
-
-END get_item
-
-
-# References
+def get_item_logic(current_room, rooms_dict, inventory):
+    # 1. SET room_item TO item in rooms_dict[current_room]
+    # Using .get('item') prevents a crash if the room doesn't have an item
+    room_item = rooms_dict[current_room].get('item')
+    
+    # 3. OUTPUT "Enter command: "
+    # 4. INPUT user_input
+    user_input = input("Enter command: ").strip()
+    
+    # 5. SET requested_item TO target item from user_input
+    # Assuming the player types something like "get potion"
+    words = user_input.split()
+    if len(words) >= 2:
+        requested_item = words[1].capitalize()
+    else:
+        requested_item = ""
+        
+    # 7. IF requested_item == room_item THEN
+    if requested_item == room_item:
+        # 8. ADD requested_item TO inventory
+        inventory.append(requested_item)
+        
+        # 9. REMOVE item from rooms_dict[current_room]
+        del rooms_dict[current_room]['item']
+        
+        # 10. OUTPUT "You picked up the " + requested_item
+        print("You picked up the " + requested_item)
+        
+    # 11. ELSE
+    else:
+        # 12. OUTPUT "There is no " + requested_item + " in this room."
+        if requested_item:
+            print("There is no " + requested_item + " in this room.")
+        else:
+            print("You didn't specify an item to get!")
+            
+    # 15. RETURN inventory
+    return inventory
 
