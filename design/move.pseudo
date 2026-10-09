@@ -1,25 +1,35 @@
-# Project One Move-Between-Rooms Pseudocode
-#
-# Graded checkpoint: Module Five Project One
-# Later use: conceptual support for M6; movement design for M7
-#
-# Review the course-provided movement flowchart before completing this file.
-# Write pseudocode, not Python code. Use clear indentation and course-appropriate
-# keywords such as INPUT, OUTPUT, IF, ELSE, WHILE, SET, or similar terms.
-
-# TODO 1: Identify the information the movement process needs.
-# Consider the player's current room and movement command.
-
-# TODO 2: Prompt for and receive the player's movement command.
-
-# TODO 3: Validate whether the requested movement is possible from the
-# current room. Show the decision clearly.
-
-# TODO 4: Describe what happens when the movement command is valid.
-# Include the room update and player output.
-
-# TODO 5: Describe what happens when the movement command is invalid.
-# Include the output the player should receive.
-
-# TODO 6: Show how movement fits into repeated gameplay.
-# The final game continues accepting commands until a required ending occurs.
+def move_player(command, current_room, rooms):
+    # 1. SET words TO split command by spaces
+    words = command.split()
+    
+    # 3. IF length of words >= 2 AND words[0] == "go" THEN
+    if len(words) >= 2 and words[0].lower() == "go":
+        # 4. SET direction TO capitalize words[1]
+        direction = words[1].capitalize() 
+        
+    # 5. ELSE IF length of words == 1 THEN
+    elif len(words) == 1:
+        # 6. SET direction TO capitalize words[0]
+        direction = words[0].capitalize()
+        
+    # 7. ELSE
+    else:
+        # 8. OUTPUT "Invalid command format."
+        print("Invalid command format.")
+        # 9. RETURN current_room
+        return current_room
+        
+    # 12. IF direction IN rooms[current_room] THEN
+    if direction in rooms[current_room]:
+        # 13. SET current_room TO rooms[current_room][direction]
+        current_room = rooms[current_room][direction]
+        # 14. OUTPUT "You moved to the " + current_room
+        print("You moved to the " + current_room)
+        
+    # 15. ELSE
+    else:
+        # 16. OUTPUT "You can't go that way!"
+        print("You can't go that way!")
+        
+    # 19. RETURN current_room
+    return current_room
